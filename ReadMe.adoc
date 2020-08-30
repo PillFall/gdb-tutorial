@@ -1,0 +1,23 @@
+= Tutorial de GDB
+Joar Buitrago <jebuitragoc@unal.edu.co>
+v0.1.0, 30-08-2020
+
+En este tutorial se encuentra un presentación.
+
+== Licencia
+
+Las presentaciones en este repositorio, y por ende sus códigos fuente
+están licenciados bajo
+link:License.md[*Creative Commons Attribution Share Alike 4.0*
+image:https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg[title="Imagen
+Licencia"]]
+
+Todas las imágenes (fotos e ilustraciones) son propiedad de sus
+respectivos autores y se reproducen con su consentimiento mediante las
+licencias correspondientes que autorizan a ello. NO está permitido
+reproducir las imágenes sin obtener la licencia correspondiente de sus
+titulares.
+
+Respecto a las marcas, nombres comerciales o cualquier otro signo
+distintivo de terceros que se utilizan en estas presentaciones, son
+propiedad de sus respectivos titulares.
