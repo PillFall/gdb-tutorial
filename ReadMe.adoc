@@ -2,7 +2,22 @@
 Joar Buitrago <jebuitragoc@unal.edu.co>
 v0.1.0, 30-08-2020
 
-En este tutorial se encuentra un presentación.
+El objetivo de este tutorial es el de que la persona que lo lea sea
+capaz de utilizar gdb como su debugger para C++.
+
+En este repositorio encontrara una presentación realizada utilizando
+el framework de link:https://impress.js.org[impress.js] para su
+renderizacion.
+
+También encontrara unos códigos de ejemplo que pueden ser compilados
+para realizar el proceso de depuración.  Se recomienda, para el
+objetivo de este tutorial, compilar el codigo utilizando la siguiente
+invocación de `g++`:
+
+[source, bash]
+----
+g++ -w -g <codigo.cpp>
+----
 
 == Licencia
 

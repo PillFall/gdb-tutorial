@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Tutorial de GDB</title>
+
+    <link href="css/impress-common.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+  </head>
+  <body class="impress-not-supported">
+
+    <div class="fallback-message">
+      <p>
+        Your browser <b>doesn't support the features required</b> by
+        impress.js, so you are presented with a simplified version of
+        this presentation.
+      </p>
+      <p>
+        For the best experience please use the latest <b>Chrome</b>,
+        <b>Safari</b> or <b>Firefox</b> browser.
+      </p>
+    </div>
+
+    <div id="impress"
+         data-transition-duration="1000"
+
+         data-width="1920"
+         data-height="1080"
+         data-max-scale="5"
+         data-min-scale="0"
+         data-perspective="1000">
+
+      <div id="Main-title" class="step slide" data-x="-2000" data-y="0">
+        <span class="main-title-container">
+          <p class="main-title">Tutorial de <b>GDB</b></p>
+          <p class="author">Joar Esteban Buitrago Carrillo</p>
+        </span>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="0">
+        <p class="title">¿Qué es GDB?</p>
+
+        <p>
+          <strong>GDB</strong> es el acrónimo de <strong>GNU DeBugger</strong>.
+        </p>
+
+        <p>
+          Es el depurador estándar de GCC para los lenguajes de
+          programación de C, C++ y Fortran escrito por Richard
+          Stallman en 1986.
+        </p>
+
+        <img class="display-bottom"
+             style="width: 600px;"
+             src="assets/gdb_icon.svg"
+             alt="Icono de GDB (es un pez)" />
+
+        <div class="notes">
+          Un bug es un error que no se entiende de donde surge, nace
+          de encontrar un insecto en una maquina en 1947 por Grace
+          Murray Hopper (Física y Matemática).
+
+          GDB funciona para Ada, C, C++, Objective-C, Free Pascal,
+          Fortran, Go y otros muy parcialmente.
+        </div>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="0">
+        <p class="title">Preparación</p>
+
+        <p>
+          Antes de trabajar con GDB es necesario compilar el código de
+          manera tal que sea entendible para GDB.
+        </p>
+
+        <pre>
+          <code>g++ -g codigo.cpp</code>
+        </pre>
+
+        <div class="notes">
+          La bandera de compilación con información de debug es -g,
+          esta mantiene la ubicación de los símbolos y el código, esto
+          hace que el ejecutable también sea más grande.
+        </div>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="1200">
+        <p class="title">Preparación</p>
+
+        <p>
+          En caso de el uso de CMake, es necesario definir la
+          variable <code>CMAKE_BUILD_TYPE</code> con el valor
+          de <code>Debug</code>.
+        </p>
+
+        <pre>
+          <code class="cmake">set(CMAKE_BUILD_TYPE Debug)</code>
+          <code>cmake -DCMAKE_BUILD_TYPE=Debug ..</code>
+        </pre>
+
+        <div class="notes">
+          Los códigos son de ejemplo, y pueden variar.
+        </div>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="0">
+        <p class="title">Invocación</p>
+
+        <p>
+          Para iniciar GDB es necesario solamente llamarlo desde la
+          línea de comandos, utilizando como argumento el nombre
+          del <strong>ejecutable</strong>.
+        </p>
+
+        <pre>
+          <code>gdb nombre_del_ejecutable</code>
+        </pre>
+
+        <p>
+          En caso de que el ejecutable reciba argumentos desde la
+          línea de comandos, se debe llamar con la
+          opción <code>--args</code> seguido de todos los
+          argumentos de entrada.
+        </p>
+
+        <pre>
+          <code>gdb --args nombre_del_ejecutable argumento_1 ... argumento_n</code>
+        </pre>
+
+        <div class="notes">
+          GDB solamente funciona desde la línea de comandos, no tiene
+          una interfaz grafica propia.
+        </div>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="1200">
+        <p class="title">Invocación</p>
+
+        <p>
+          Tambien es posible hacer que GDB lea un programa utilizando
+          el comando <code>file</code>.
+        </p>
+
+        <pre>
+          <code>file nombre_del_ejecutable</code>
+        </pre>
+
+        <p>
+          En este caso, para llamar los argumentos del programa es
+          necesario utilizar el comando <code>set args</code>
+        </p>
+
+        <pre>
+          <code>set args argumento_1 ... argumento_n</code>
+        </pre>
+      </div>
+
+
+      <div class="step slide" data-x="6000" data-y="0">
+        <p class="title">Comandos</p>
+
+        <p>
+          Por la forma en como funciona GDB es necesario el uso de
+          comandos que entran por medio de su interfaz.
+        </p>
+
+        <ul>
+          <li class="substep">
+            <code>next</code>: Avanza a la siguiente instrucción en el
+            «scope» actual.
+          </li>
+          <li class="substep">
+            <code>step</code>: Avanza un paso en la ejecución.
+          </li>
+          <li class="substep">
+            <code>backtrace</code>: Muestra los registros de lo que se
+            ha ejecutado desde el inicio del programa.
+          </li>
+          <li class="substep">
+            <code>print</code>: Imprime sus argumentos a pantalla.
+          </li>
+          <li class="substep">
+            <code>set</code>: Asigna valores a variables.
+          </li>
+          <li class="substep">etc.</li>
+        </ul>
+
+        <div class="notes">
+          <ul>
+            <li class="substep">
+              <code>next</code>: Avanza a la siguiente instrucción en
+              el «scope» actual.
+            </li>
+            <li class="substep">
+              <code>step</code>: Avanza un paso en la ejecución.
+            </li>
+            <li class="substep">
+              <code>backtrace</code>: Muestra los registros de lo que
+              se ha ejecutado desde el inicio del programa.
+            </li>
+            <li class="substep">
+              <code>print</code>: Imprime sus argumentos a pantalla.
+            </li>
+            <li class="substep">
+              <code>set</code>: Asigna valores a variables.
+            </li>
+            <li class="substep">etc.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="8000" data-y="0">
+        <p class="title">Referencias</p>
+
+        <p>
+          Enlaces a las referencias usadas en esta presentación.
+        </p>
+
+        <ul>
+          <li>
+            <a href="https://sourceware.org/gdb/current/onlinedocs/gdb/">
+              Debbuging with GDB
+            </a>
+          </li>
+          <li>
+            <a href="https://es.wikipedia.org/wiki/GNU_Debugger">
+              Wikipedia: GNU Debugger
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/cbourke/ComputerScienceI">
+              Computer Science I Course | University of Nebraska-Lincoln
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Aqui termina la presentación -->
+
+
+
+    <div id="impress-toolbar"></div>
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script src="js/impress.js"></script>
+    <script>impress().init();</script>
+  </body>
+</html>
